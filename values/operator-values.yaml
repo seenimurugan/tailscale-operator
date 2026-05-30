@@ -1,0 +1,77 @@
+# values/operator-values.yaml
+# Helm values for tailscale/tailscale-operator
+# Chart: https://pkgs.tailscale.com/helmcharts  (tailscale/tailscale-operator)
+# Docs:  https://tailscale.com/kb/1236/kubernetes-operator
+#
+# IMPORTANT: OAuth credentials are NOT stored here.
+# They are injected at deploy time as a Kubernetes Secret (operator-oauth)
+# by deploy.sh, which reads them from .env.
+# The chart discovers credentials from the secret automatically.
+#
+# Most values here are explicit defaults — the chart ships with sane defaults
+# and this file mainly documents the options available.
+# ---------------------------------------------------------------------------
+
+# -- operator: configuration for the operator deployment itself --
+
+operator:
+  # Image tag to pin the operator to.
+  # Leave empty to use the chart's default (latest stable at chart version).
+  # Pin to a specific tag for reproducible deploys, e.g. "v1.98.0".
+  image:
+    tag: ""
+
+  # Resource requests/limits for the operator pod.
+  # The operator is lightweight; defaults are fine for homelab.
+  # resources:
+  #   requests:
+  #     cpu: 100m
+  #     memory: 50Mi
+  #   limits:
+  #     cpu: 250m
+  #     memory: 100Mi
+
+  # Log level: debug | info | warn | error
+  logging: info
+
+# -- oauth: where to find the OAuth secret --
+# deploy.sh creates a Secret named "operator-oauth" with keys
+# client_id and client_secret before running helm upgrade.
+# The chart reads these automatically when oauthSecretName is set.
+oauth:
+  # Name of the pre-created Secret that holds client_id + client_secret.
+  # Must exist in the same namespace as the operator.
+  # Created by deploy.sh — do NOT change this name without updating deploy.sh.
+  clientId: ""       # leave empty; injected from the operator-oauth Secret
+  clientSecret: ""   # leave empty; injected from the operator-oauth Secret
+
+# -- proxyConfig: settings for the per-Ingress proxy pods --
+proxyConfig:
+  # defaultTailscaledConfig is passed to tailscaled running inside proxy pods.
+  # acceptRoutes: false   -- proxy pods don't accept subnet routes (correct for Ingress-only use)
+  # Leave empty to use chart defaults.
+  defaultTailscaledConfig: {}
+
+# -- apiServerProxyConfig --
+# Exposes the Kubernetes API server on your tailnet (useful for remote kubectl).
+# Disabled by default; enable if you want to run kubectl from outside the LAN.
+apiServerProxyConfig:
+  mode: "false"   # set to "true" to expose kube-apiserver on tailnet
+
+# -- ingressConfig --
+# Controls how the operator names proxy devices on the tailnet.
+# Defaults result in devices named after the Ingress resource (e.g. "chores",
+# "jellyfin") which become <name>.<tailnet>.ts.net.
+# No customisation needed for standard homelab use.
+
+# -- tags --
+# ACL tags applied to every proxy pod that joins the tailnet.
+# The tag must exist in your Tailscale ACL policy.
+# Default used by the chart is "tag:k8s" — create it at
+# https://login.tailscale.com/admin/acls before first deploy.
+# tags:
+#   - tag:k8s
+
+# -- priorityClassName --
+# Leave unset (operator runs at normal priority on homelab single-node).
+# priorityClassName: ""
