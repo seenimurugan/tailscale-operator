@@ -1,5 +1,7 @@
 # Tailscale Operator — Architecture & Tech Stack
 
+**On this page:** [Deployment diagram](#deployment-diagram) · [What is it](#what-is-it) · [Tech stack](#tech-stack) · [Source code](#source-code) · [Local config files](#local-config-files) · [How it works](#how-it-works) · [Current Ingresses](#current-ingresses) · [Tagged devices](#tagged-devices) · [Design decisions](#design-decisions) · [What's NOT used](#whats-not-used) · [Reference](#reference)
+
 ## Deployment diagram
 
 ```mermaid

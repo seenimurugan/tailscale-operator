@@ -1,5 +1,7 @@
 # Tailscale Operator — Maintenance
 
+**On this page:** [Deploy / upgrade](#deploy--upgrade) · [Restart operator](#restart-operator) · [Restart a specific Ingress's proxy pod](#restart-a-specific-ingresss-proxy-pod) · [View operator logs](#view-operator-logs) · [Rotate OAuth credentials](#rotate-oauth-credentials) · [Troubleshooting](#troubleshooting)
+
 ## Deploy / upgrade
 
 ```bash

@@ -2,6 +2,8 @@
 
 How to expose new services and connect devices.
 
+**On this page:** [Connect a device to your tailnet](#connect-a-device-to-your-tailnet) · [Expose a new cluster service](#expose-a-new-cluster-service) · [List all currently exposed services](#list-all-currently-exposed-services) · [Check which devices are on the tailnet](#check-which-devices-are-on-the-tailnet) · [Share an Ingress URL with family](#share-an-ingress-url-with-family)
+
 ## Connect a device to your tailnet
 
 ### iPhone / iPad

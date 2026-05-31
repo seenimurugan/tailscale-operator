@@ -4,6 +4,8 @@ The Tailscale Kubernetes Operator gives every cluster Ingress its own `*.stoat-p
 
 Source: Helm chart `tailscale/tailscale-operator` (no custom code). Managed at `/Users/nila/Developer/apps/tailscale-operator/`.
 
+**On this page:** [Access](#access) · [Apps exposed via this operator](#apps-exposed-via-this-operator) · [What it does](#what-it-does) · [Stack & framework](#stack--framework) · [Storage](#storage) · [See also](#see-also)
+
 ---
 
 ## Access
