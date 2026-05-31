@@ -1,5 +1,18 @@
 # Tailscale Operator — Architecture & Tech Stack
 
+## Deployment diagram
+
+```mermaid
+graph TD
+    A[Browser on Tailnet] -->|HTTPS| B[Tailscale network\n*.stoat-perch.ts.net]
+    B --> C[Proxy Pod\nts-myapp-xxxxx]
+    C -->|plaintext HTTP| D[In-cluster Service\nmyapp.homelab.svc.cluster.local]
+    D --> E[App Pod]
+    OP[Operator Pod\ntailscale-operator] -->|watches Ingress CRDs| F[Kubernetes API]
+    OP -->|mints auth key via OAuth| G[Tailscale Control Plane]
+    OP -->|spawns| C
+```
+
 ## What is it
 
 The Tailscale [Kubernetes Operator](https://tailscale.com/kb/1236/kubernetes-operator) automatically attaches cluster Services + Ingresses to your tailnet, so they're reachable from any Tailscale-connected device with auto-issued HTTPS certs and clean URLs.
